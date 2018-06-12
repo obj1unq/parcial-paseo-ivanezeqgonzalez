@@ -1,3 +1,14 @@
+class Familia{
+	
+	method cambiarPares(parA, parB){
+		if (parA.talle() == parB.talle()){
+			var derechoA = parA.derecho()
+			parA.derecho(parB.derecho())
+			parB.derecho(derechoA)
+		}
+	}
+	
+}
 class Ninio{
 	var property talle = null
 	var property prentas = #{}
