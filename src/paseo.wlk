@@ -11,10 +11,10 @@ class Familia{
 		return ninios.all({n => n.estaListoParaSalir()})
 	}
 	method prendaInfaltable(){
-		return ninios.all({n => n.prendaInfaltable()})
+		return ninios.filter({n => n.prendaInfaltable()})
 	}
 	method niniosChiquitos(){
-		return ninios.all({n => n.esChuiquito()})
+		return ninios.filter({n => n.esChuiquito()})
 	}
 }
 class Ninio{
