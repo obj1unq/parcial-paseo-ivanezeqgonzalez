@@ -1,12 +1,6 @@
 class Familia{
 	var property ninios = #{}
-	method cambiarPares(parA, parB){
-		if (parA.talle() == parB.talle()){
-			var derechoA = parA.derecho()
-			parA.derecho(parB.derecho())
-			parB.derecho(derechoA)
-		}
-	}
+
 	method estaListaParaSalir(){
 		return ninios.all({n => n.estaListoParaSalir()})
 	}
@@ -93,8 +87,7 @@ class Prenda{
 class PrendaDeAPar inherits Prenda{
 	var property izquierdo = null
 	var property derecho = null
-	constructor(){nivelDeAbrigo = 1}
-	
+		
 	method nivelDesgaste(){
 		return (izquierdo.nivelDesgaste() + derecho.nivelDesgaste())/2
 	}
@@ -104,6 +97,19 @@ class PrendaDeAPar inherits Prenda{
 	override method gastarPrenda(numero){
 		izquierdo.gastarPrenda(0.8)
 		derecho.gastarPrenda(1.20)
+	}
+	method nivelDeAbrigo(){
+		return izquierdo.nivelDeAbrigo() + derecho.nivelDeAbrigo()
+	}
+	method talle(){
+		return izquierdo.talle() // o podria ser derecho
+	}
+	method intercambiar(otroPar){
+		if (self.talle() == otroPar.talle()){
+			var derechoB = derecho
+			derecho = otroPar.derecho()
+			otroPar.derecho(derechoB)
+		}
 	}
 }
 class PrendaLiviana inherits Prenda{
