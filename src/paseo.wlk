@@ -10,7 +10,9 @@ class Familia{
 	method estaListaParaSalir(){
 		return ninios.all({n => n.estaListoParaSalir()})
 	}
-	
+	method prendaInfaltable(){
+		return ninios.all({n => n.prendaInfaltable()})
+	}
 }
 class Ninio{
 	var property talle = null
@@ -28,6 +30,9 @@ class Ninio{
 	}	
 	method prendasDeCalidad(){
 		return prendas.sum({p => p.calidad(self)}) / prendas.size()
+	}
+	method prendaInfaltable(){
+		return prendas.max({p => p.calidad(self)})
 	}
 }
 class NinioProblematico inherits Ninio{
@@ -47,8 +52,8 @@ class NinioProblematico inherits Ninio{
 }
 
 class Juguete{
-	var minima
-	var maxima
+	var property edadMinima = null
+	var property edadMaxima = null
 }
 class Prenda{
 	var property talle = null
