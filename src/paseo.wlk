@@ -24,6 +24,7 @@ class Ninio{
 class Prenda{
 	var property talle = null
 	var property nivelDesgaste = null
+	var property nivelDeAbrigo = null
 	
 	method comodidad(ninio){
 		if(talle == ninio.talle()){
@@ -36,6 +37,7 @@ class Prenda{
 class PrendaDeAPar inherits Prenda{
 	var property izquierdo = null
 	var property derecho = null
+	constructor(){nivelDeAbrigo = 1}
 	
 	method nivelDesgaste(){
 		return (izquierdo.desgaste() + derecho.desgaste())/2
@@ -46,7 +48,10 @@ class PrendaDeAPar inherits Prenda{
 	
 }
 class PrendaLiviana inherits Prenda{
-	var property desgaste = 0
+	constructor(){
+		nivelDesgaste = 0
+		nivelDeAbrigo = 1
+	}
 	
 	override method comodidad(ninio){
 		return super(ninio) + 2
@@ -54,7 +59,11 @@ class PrendaLiviana inherits Prenda{
 }
 
 class PrendaPesada inherits Prenda{
-	var property desgaste = 0
+	constructor(){
+		nivelDesgaste = 0
+		nivelDeAbrigo = 3
+	}
+	
 }
 
 
