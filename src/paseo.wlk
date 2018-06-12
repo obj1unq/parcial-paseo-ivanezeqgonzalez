@@ -13,11 +13,15 @@ class Familia{
 	method prendaInfaltable(){
 		return ninios.all({n => n.prendaInfaltable()})
 	}
+	method niniosChiquitos(){
+		return ninios.all({n => n.esChuiquito()})
+	}
 }
 class Ninio{
 	var property talle = null
 	var property prendas = #{}
 	var property edad = null 
+	
 	var minimoDePrendasParaSalir = 5
 	
 	method nivelDeComodiadDePrenda(prenda){
@@ -33,6 +37,9 @@ class Ninio{
 	}
 	method prendaInfaltable(){
 		return prendas.max({p => p.calidad(self)})
+	}
+	method esChiquito(){
+		return edad < 4
 	}
 }
 class NinioProblematico inherits Ninio{
@@ -80,7 +87,7 @@ class PrendaDeAPar inherits Prenda{
 		return (izquierdo.desgaste() + derecho.desgaste())/2
 	}
 	override method comodidad(ninio){
-		return super(ninio) - if(ninio.edad() < 4) 1 else 0
+		return super(ninio) - if(ninio.esChiquito()) 1 else 0
 	}
 	
 }
