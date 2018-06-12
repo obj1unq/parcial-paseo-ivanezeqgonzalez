@@ -1,5 +1,5 @@
 class Familia{
-	
+	var property ninios = #{}
 	method cambiarPares(parA, parB){
 		if (parA.talle() == parB.talle()){
 			var derechoA = parA.derecho()
@@ -7,18 +7,27 @@ class Familia{
 			parB.derecho(derechoA)
 		}
 	}
+	method estaListaParaSalir(){
+		return ninios.all({n => n.estaListoParaSalir()})
+	}
 	
 }
 class Ninio{
 	var property talle = null
-	var property prentas = #{}
+	var property prendas = #{}
 	var property edad = null 
 	
 	method nivelDeComodiadDePrenda(prenda){
 		return prenda.comodidad(self)
 	} 
-		
-	 
+	method estaListoParaSalir(){
+		return prendas.size() >= 5 &&
+			prendas.any({p => p.nivelDeAbrigo() >= 3}) &&
+			self.prendasDeCalidad() > 8 
+	}	
+	method prendasDeCalidad(){
+		return prendas.sum({p => p.calidad(self)}) / prendas.size()
+	}
 }
 
 class Prenda{
@@ -32,6 +41,9 @@ class Prenda{
 		}else{
 			return 0
 		} 
+	}
+	method calidad(ninio){
+		return self.comodidad(ninio) + nivelDeAbrigo
 	}
 }
 class PrendaDeAPar inherits Prenda{
