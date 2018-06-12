@@ -1,3 +1,51 @@
+class Ninio{
+	var property talle = null
+	var property prentas = #{}
+	var property edad = null 
+	
+	method nivelDeComodiadDePrenda(prenda){
+		return prenda.comodidad(self)
+	} 
+		
+	 
+}
+
+class Prenda{
+	var property talle = null
+	var property nivelDesgaste = null
+	
+	method comodidad(ninio){
+		if(talle == ninio.talle()){
+			return 8 - (nivelDesgaste.min(3))
+		}else{
+			return 0
+		} 
+	}
+}
+class PrendaDeAPar inherits Prenda{
+	var property izquierdo = null
+	var property derecho = null
+	
+	method nivelDesgaste(){
+		return (izquierdo.desgaste() + derecho.desgaste())/2
+	}
+	override method comodidad(ninio){
+		return super(ninio) - if(ninio.edad() < 4) 1 else 0
+	}
+	
+}
+class PrendaLiviana inherits Prenda{
+	var property desgaste = 0
+	
+	override method comodidad(ninio){
+		return super(ninio) + 2
+	}
+}
+
+class PrendaPesada inherits Prenda{
+	var property desgaste = 0
+}
+
 
 
 //Esta clase no debe existir, 
