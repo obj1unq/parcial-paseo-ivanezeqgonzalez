@@ -16,12 +16,13 @@ class Ninio{
 	var property talle = null
 	var property prendas = #{}
 	var property edad = null 
+	var minimoDePrendasParaSalir = 5
 	
 	method nivelDeComodiadDePrenda(prenda){
 		return prenda.comodidad(self)
 	} 
 	method estaListoParaSalir(){
-		return prendas.size() >= 5 &&
+		return prendas.size() >= minimoDePrendasParaSalir &&
 			prendas.any({p => p.nivelDeAbrigo() >= 3}) &&
 			self.prendasDeCalidad() > 8 
 	}	
@@ -29,7 +30,26 @@ class Ninio{
 		return prendas.sum({p => p.calidad(self)}) / prendas.size()
 	}
 }
+class NinioProblematico inherits Ninio{
+	var property jugueteEnMano = null
+	constructor(){
+		minimoDePrendasParaSalir = 4
+	}
+	
+	override method estaListoParaSalir(){
+		return super() && self.jugueteListoParaSalir()
+	}
+	method jugueteListoParaSalir(){
+		return edad.between(jugueteEnMano.edadMinima(),
+			jugueteEnMano.edadMaxima()
+		)
+	}
+}
 
+class Juguete{
+	var minima
+	var maxima
+}
 class Prenda{
 	var property talle = null
 	var property nivelDesgaste = null
