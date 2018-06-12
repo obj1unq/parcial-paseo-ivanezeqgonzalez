@@ -16,6 +16,11 @@ class Familia{
 	method niniosChiquitos(){
 		return ninios.filter({n => n.esChuiquito()})
 	}
+	method salirDePaseo(){
+		if (self.estaListaParaSalir()){
+			ninios.forEach({n => n.gastarPrendas()})
+		}
+	}
 }
 class Ninio{
 	var property talle = null
@@ -41,7 +46,11 @@ class Ninio{
 	method esChiquito(){
 		return edad < 4
 	}
+	method gastarPrendas(){
+		prendas.forEach({p => p.gastarPrenda()})
+	}
 }
+
 class NinioProblematico inherits Ninio{
 	var property jugueteEnMano = null
 	constructor(){
@@ -77,6 +86,9 @@ class Prenda{
 	method calidad(ninio){
 		return self.comodidad(ninio) + nivelDeAbrigo
 	}
+	method gastarPrenda(numero){
+		nivelDesgaste += numero
+	}
 }
 class PrendaDeAPar inherits Prenda{
 	var property izquierdo = null
@@ -84,12 +96,15 @@ class PrendaDeAPar inherits Prenda{
 	constructor(){nivelDeAbrigo = 1}
 	
 	method nivelDesgaste(){
-		return (izquierdo.desgaste() + derecho.desgaste())/2
+		return (izquierdo.nivelDesgaste() + derecho.nivelDesgaste())/2
 	}
 	override method comodidad(ninio){
 		return super(ninio) - if(ninio.esChiquito()) 1 else 0
 	}
-	
+	override method gastarPrenda(numero){
+		izquierdo.gastarPrenda(0.8)
+		derecho.gastarPrenda(1.20)
+	}
 }
 class PrendaLiviana inherits Prenda{
 	constructor(){
@@ -108,23 +123,6 @@ class PrendaPesada inherits Prenda{
 		nivelDeAbrigo = 3
 	}
 	
-}
-
-
-
-//Esta clase no debe existir, 
-//está para que el test compile al inicio del examen
-//al finalizar el examen hay que borrar esta clase
-class XXX {
-	var talle= null
-	var desgaste= null
-	var min= null
-	var max= null
-	var prendas= null
-	var ninios= null
-	var edad= null
-	var juguete = null
-	var abrigo = null
 }
 
 //Objetos usados para los talles
