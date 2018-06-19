@@ -1,3 +1,15 @@
+// Nota 7 (siete). Falta el manejo de excepciones. 
+
+// 1) MB.
+// 2) B. Falta manejo de excepciones
+// 3) MB. 
+// 4) B. 
+// 5) B.
+// 6) Mal. Confunde filter con map.
+// 7) B. Falta abstracción para esPequenio.
+// 8) B. Falta manejo de excepciones.
+// Tests no andan!
+
 class Familia{
 	var property ninios = #{}
 
@@ -5,6 +17,7 @@ class Familia{
 		return ninios.all({n => n.estaListoParaSalir()})
 	}
 	method prendaInfaltable(){
+		// Debería ser map
 		return ninios.filter({n => n.prendaInfaltable()})
 	}
 	method niniosChiquitos(){
@@ -14,13 +27,15 @@ class Familia{
 		if (self.estaListaParaSalir()){
 			ninios.forEach({n => n.gastarPrendas()})
 		}
+		// Falta manejo de excepciones.
 	}
 }
 class Ninio{
 	var property talle = null
 	var property prendas = #{}
 	var property edad = null 
-	
+
+	// Sería mejor usar un método y sobreescribirlo.	
 	var minimoDePrendasParaSalir = 5
 	
 	method nivelDeComodiadDePrenda(prenda){
@@ -48,6 +63,7 @@ class Ninio{
 class NinioProblematico inherits Ninio{
 	var property jugueteEnMano = null
 	constructor(){
+		// Sería mejor usar un método y sobreescribirlo.	
 		minimoDePrendasParaSalir = 4
 	}
 	
@@ -55,6 +71,7 @@ class NinioProblematico inherits Ninio{
 		return super() && self.jugueteListoParaSalir()
 	}
 	method jugueteListoParaSalir(){
+		// Mejor delegar en juguete
 		return edad.between(jugueteEnMano.edadMinima(),
 			jugueteEnMano.edadMaxima()
 		)
@@ -78,6 +95,7 @@ class Prenda{
 		} 
 	}
 	method calidad(ninio){
+		// Debería ser self.nivelDeAbrigo para permitir que las subclases sobreescriban el método.
 		return self.comodidad(ninio) + nivelDeAbrigo
 	}
 	method gastarPrenda(numero){
@@ -110,6 +128,7 @@ class PrendaDeAPar inherits Prenda{
 			derecho = otroPar.derecho()
 			otroPar.derecho(derechoB)
 		}
+		// Debería tirar excepción si falla la validación
 	}
 }
 class PrendaLiviana inherits Prenda{
